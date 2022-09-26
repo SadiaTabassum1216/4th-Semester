@@ -61,20 +61,20 @@ int64 sigmaE(int64 e)   {return rotate_right(e, 14)^ rotate_right(e, 18)^ rotate
 int64 BintoDec(string bin) {return bitset<64>(bin).to_ullong();}    // Convert a binary string to decimal value
 
 
-void Func(int64 a, int64 b, int64 c,int64 d, int64 e, int64 f,int64 g, int64 h,int K)
+void Func(int K)
 {
 	// Find the Hash Code
-	int64 T1 = h + Ch(e, f, g) + sigmaE(e) + Message[K] + Constants[K];
-	int64 T2 = sigmaA(a) + maj(a, b, c);
+	int64 T1 = h[7] + Ch(h[4], h[5], h[6]) + sigmaE(h[4]) + Message[K] + Constants[K];
+	int64 T2 = sigmaA(h[0]) + maj(h[0], h[1], h[2]);
 
-            h=g;
-			g=f;
-			f=e;
-			e=d+T1;
-			d=c;
-			c=b;
-			b=a;
-			a=T1+T2;
+            h[7]=h[6];
+			h[6]=h[5];
+			h[5]=h[4];
+			h[4]=h[3]+T1;
+			h[3]=h[2];
+			h[2]=h[1];
+			h[1]=h[0];
+			h[0]=T1+T2;
 }
 
 void separator(string getBlock)
@@ -145,7 +145,7 @@ void SHA(string str)
             h[i]=HashBuffer[i];
 
         for(int i=0;i<80;i++){
-            Func(h[0],h[1],h[2],h[3],h[4],h[5],h[6],h[7],i);
+            Func(i);
         }
         //addition
         for (int j = 0; j < 8; j++){
