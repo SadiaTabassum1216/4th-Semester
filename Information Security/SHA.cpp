@@ -108,7 +108,7 @@ void SHA(string str)
     int len=str.length();
 
     int block_num=ceil((float)(len+16+1)/128);
-    int mod=128-(len+16)%16;
+    int mod=128-(len)%128;
 
     cout<<"\nLength (before padding): "<<str.length()<<" bytes\t"<<len*8<<" bits"<<endl;
     cout<<"Block number:\t"<<block_num<<endl;
@@ -120,6 +120,7 @@ void SHA(string str)
 		fixedstream << bitset<8>(str[i]);
 	}
     str = fixedstream.str();
+    //cout<<str.length()<<endl;
 
     str+="1";
     for(int i=0;i<(mod*8-129);i++)
@@ -133,13 +134,21 @@ void SHA(string str)
     cout<<"Length (adding length): "<<str.length()/8<<" bytes\t"<<str.length()<<" bits\n"<<endl;
 
     string Blocks[block_num];
+    //cout<<"hello"<<endl;
+
     int k=0;
 	for (int i = 0; i < str.length();i += 1024, ++k) {
+        //cout<<"Block length: "<<Blocks[k].length()<<endl;
 		Blocks[k] = str.substr(i, 1024);
+
 	}
+
+	//cout<<"hello"<<endl;
 
     for(int k=0;k<block_num;++k){
         separator(Blocks[k]);
+
+
 
         for(int i=0;i<8;i++)
             h[i]=HashBuffer[i];
@@ -147,6 +156,7 @@ void SHA(string str)
         for(int i=0;i<80;i++){
             Func(i);
         }
+
         //addition
         for (int j = 0; j < 8; j++){
                 HashBuffer[j] += h[j];
@@ -163,9 +173,12 @@ void SHA(string str)
 
 int main()
 {
+//    string str;
+//    cout<<"Enter text: ";
+//    getline(cin,str);
+    freopen("sha.txt","r",stdin);
     string str;
-    cout<<"Enter text: ";
-    cin>>str;
+    getline(cin,str);
 
     SHA(str);
 }
