@@ -1,0 +1,16 @@
+BEGIN 
+   for v_counter in reverse 1..15;
+if v_counter = 0
+ then
+    DBMS_OUTPUT.PUT_LINE(v_counter);
+end if;
+if v_counter = 1
+  then
+   DBMS_OUTPUT.PUT_LINHE(v_counter);
+if v_counter >1
+LOOP
+  (v_counter-1)+(v_counter-2)
+  DBMS_OUTPUT.PUT_LINHE(v_counter);
+END LOOP;
+END;
+/

@@ -1,0 +1,31 @@
+declare
+v1 number := 3;
+v2 number := 50;
+v3 number := 8;
+max number := 0;
+begin
+  if v1 > v2
+	then
+  		if v1 > v3
+		then
+		dbms_output.put_line(v1);
+		end if;
+  end if;
+
+if v2 > v1
+	then
+		if v2 > v3
+		then
+		dbms_output.put_line(v2);
+		end if;
+end if;
+
+if v3 > v2
+	then
+		if v3 > v1
+		then
+		dbms_output.put_line(v3);
+		end if;
+end if;
+end;
+/
